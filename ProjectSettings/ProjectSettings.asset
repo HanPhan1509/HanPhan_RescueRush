@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 00000000000000000000000000000000
+  productGUID: 440e6103d5c11ce4393c03b7f618a517
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -874,7 +874,8 @@ PlayerSettings:
   metroDefaultTileSize: 1
   metroTileForegroundText: 2
   metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
-  metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628, a: 1}
+  metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628,
+    a: 1}
   metroSplashScreenUseBackgroundColor: 0
   platformCapabilities: {}
   metroTargetDeviceFamilies: {}
@@ -943,7 +944,7 @@ PlayerSettings:
   cloudProjectId: a1f4b1c2-689d-47da-bb16-ebe6e02aab23
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Pet Healer
+  projectName: 3D-RescueRush
   organizationId: hanphan1509
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
