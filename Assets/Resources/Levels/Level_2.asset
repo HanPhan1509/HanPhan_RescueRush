@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b62552f38812e84e84dd8dbbeb841e6, type: 3}
+  m_Name: Level_2
+  m_EditorClassIdentifier: 
+  lstTransformCat:
+  - {x: 4, y: 0, z: 0}
+  - {x: -5, y: 0, z: 14.73684}
+  - {x: 5, y: 0, z: 29.47368}
+  - {x: 7, y: 0, z: 44.21052}
+  - {x: 8, y: 0, z: 58.94736}
+  - {x: 9, y: 0, z: 73.684204}
+  - {x: -3, y: 0, z: 88.42104}
+  - {x: -10, y: 0, z: 103.15788}
+  - {x: -1, y: 0, z: 117.89472}
+  - {x: 9, y: 0, z: 132.63156}
+  - {x: 3, y: 0, z: 147.36841}
+  - {x: -1, y: 0, z: 162.10526}
+  - {x: -6, y: 0, z: 176.8421}
+  - {x: 0, y: 0, z: 191.57895}
+  - {x: -10, y: 0, z: 206.3158}
+  - {x: 9, y: 0, z: 221.05264}
+  - {x: 4, y: 0, z: 235.78949}
+  - {x: -4, y: 0, z: 250.52634}
+  - {x: -3, y: 0, z: 265.26318}
+  lstTransformObstacle:
+  - {x: 3, y: 0, z: 0}
+  - {x: 0, y: 0, z: 14.73684}
+  - {x: -10, y: 0, z: 29.47368}
+  - {x: -8, y: 0, z: 44.21052}
+  - {x: -1, y: 0, z: 58.94736}
+  - {x: 9, y: 0, z: 73.684204}
+  - {x: 8, y: 0, z: 88.42104}
+  - {x: -4, y: 0, z: 103.15788}
+  - {x: -5, y: 0, z: 117.89472}
+  - {x: 2, y: 0, z: 132.63156}
+  - {x: -1, y: 0, z: 147.36841}
+  - {x: 6, y: 0, z: 162.10526}
+  - {x: 0, y: 0, z: 176.8421}
+  - {x: 4, y: 0, z: 191.57895}
+  - {x: 6, y: 0, z: 206.3158}
