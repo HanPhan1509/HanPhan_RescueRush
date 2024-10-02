@@ -1,10 +1,12 @@
 using Cinemachine;
+using System;
 using UnityEngine;
 
 public enum CameraVirtualType
 {
     Start = 0,
-    Main = 1,
+    ZoomOut = 1,
+    Main = 2,
 }
 
 public class CameraFollow : MonoBehaviour
@@ -14,29 +16,42 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] private CinemachineBrain cameraBrain;
     [SerializeField] private CameraVirtualType firstCamera;
+    public CinemachineBrain CinemachineBrain { get { return cameraBrain; } }
 
     [Space]
-    [SerializeField] CinemachineVirtualCamera virtualCameraStart;
-    [SerializeField] CinemachineVirtualCamera virtualCameraMain;
+    [SerializeField] CinemachineVirtualCamera[] virtualCameras;
+    private Action OnPlayGame;
 
     private void Awake()
     {
+        CinemachineCore.CameraUpdatedEvent.AddListener(OnCameraUpdated);
         EnableCamera(firstCamera);
+    }
+
+    public void Run(Action OnPlayGame)
+    {
+        this.OnPlayGame = OnPlayGame;
+        EnableCamera(CameraVirtualType.ZoomOut);
     }
 
     public void EnableCamera(CameraVirtualType cameraType)
     {
-        switch (cameraType)
+        for (int i = 0; i < virtualCameras.Length; i++)
         {
-            case CameraVirtualType.Start:
-                virtualCameraStart.Priority = ACTIVE_CAMERA_PRIORITY;
-                virtualCameraMain.Priority = UNACTIVE_CAMERA_PRIORITY;
-                break;
-            case CameraVirtualType.Main:
-                virtualCameraStart.Priority = UNACTIVE_CAMERA_PRIORITY;
-                virtualCameraMain.Priority = ACTIVE_CAMERA_PRIORITY;
-                break;
+            virtualCameras[i].Priority = ((i == (int)cameraType) ? ACTIVE_CAMERA_PRIORITY : UNACTIVE_CAMERA_PRIORITY);
         }
+    }
 
+    void OnCameraUpdated(CinemachineBrain brain)
+    {
+        Debug.Log(brain.ActiveVirtualCamera);
+        if (brain.ActiveVirtualCamera == virtualCameras[(int)CameraVirtualType.ZoomOut] && !brain.IsBlending)
+        {
+            EnableCamera(CameraVirtualType.Main);
+        }
+        if (brain.ActiveVirtualCamera == virtualCameras[(int)CameraVirtualType.Main] && !brain.IsBlending)
+        {
+            OnPlayGame?.Invoke();
+        }
     }
 }
