@@ -109,11 +109,11 @@ public class LevelEditor : MonoBehaviour
         lstTransformCat.Clear();
         for (int i = 0; i < numberCat; i++)
         {
+            zPos += zRoad;
             Vector3 pos = new Vector3(Random.Range(-10, 10), 0, zPos);
             Quaternion quaternion = Quaternion.Euler(0, Random.Range(0, 360), 0);
             lstTransformCat.Add(pos);
             CreateCat(pos, quaternion);
-            zPos += zRoad;
         }
     }
 
@@ -135,13 +135,13 @@ public class LevelEditor : MonoBehaviour
         lstObstaclePosition.Clear();
         for (int i = 0; i < totalObstacles; i++)
         {
+            zPos += zRoad;
             int randRot = Random.Range(0, 360);
             Vector3 pos = new Vector3(Random.Range(-10, 10), 0, zPos);
             Quaternion quaternion = Quaternion.Euler(0, randRot, 0);
             //dictObstacle.Add(obs, obs.transform);
             lstObstaclePosition.Add(pos);
             CreateObstacle(pos, quaternion);
-            zPos += zRoad;
         }
     }
 
