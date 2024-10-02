@@ -21,6 +21,7 @@ public class CameraFollow : MonoBehaviour
     [Space]
     [SerializeField] CinemachineVirtualCamera[] virtualCameras;
     private Action OnPlayGame;
+    private bool isCameraMoving = false;
 
     private void Awake()
     {
@@ -44,7 +45,9 @@ public class CameraFollow : MonoBehaviour
 
     void OnCameraUpdated(CinemachineBrain brain)
     {
-        Debug.Log(brain.ActiveVirtualCamera);
+        if (isCameraMoving)
+            return;
+        
         if (brain.ActiveVirtualCamera == virtualCameras[(int)CameraVirtualType.ZoomOut] && !brain.IsBlending)
         {
             EnableCamera(CameraVirtualType.Main);
@@ -52,6 +55,7 @@ public class CameraFollow : MonoBehaviour
         if (brain.ActiveVirtualCamera == virtualCameras[(int)CameraVirtualType.Main] && !brain.IsBlending)
         {
             OnPlayGame?.Invoke();
+            isCameraMoving = true;
         }
     }
 }

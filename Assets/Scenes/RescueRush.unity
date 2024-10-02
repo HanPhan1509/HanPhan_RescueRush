@@ -241,9 +241,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 46306931}
   views:
-  - type: 0
-    view: {fileID: 510768786}
   - type: 1
+    view: {fileID: 510768786}
+  - type: 2
     view: {fileID: 1121796609}
 --- !u!1 &163242201
 GameObject:
@@ -892,7 +892,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672394275}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.31112298, y: -1e-45, z: -0, w: 0.95036966}
+  m_LocalRotation: {x: 0.31112298, y: 3e-45, z: -1e-45, w: 0.95036966}
   m_LocalPosition: {x: 0, y: 22, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1499,6 +1499,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 1121796610}
   pill: {fileID: 5044830478353953444, guid: e8a88f35a4708124e81290a2331d62f1, type: 3}
+  slider: {fileID: 163242203}
+  txtNumberEnery: {fileID: 270355849}
 --- !u!1 &1187936061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,8 +1754,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2124178797}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1923,7 +1925,7 @@ RectTransform:
   m_Father: {fileID: 1737145547}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2185,7 +2187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1893954387
 RectTransform:
   m_ObjectHideFlags: 0

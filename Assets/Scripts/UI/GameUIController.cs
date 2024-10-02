@@ -1,3 +1,4 @@
+using Imba.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using Watermelon;
 
 public enum TypeViewUI
 {
+    None,
     E_GameView,
     E_TapView,
 }
@@ -17,15 +19,15 @@ public class ViewUI
     public GameObject view;
 }
 
-public class GameUIController : MonoBehaviour
+public class GameUIController : ManualSingletonMono<GameUIController>
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private List<ViewUI> views = new();
 
-    private void Start()
+    public void Init()
     {
         Joystick.Instance.Initialise(canvas);
-        Joystick.Instance.DisableControl();
+        //Joystick.Instance.DisableControl();
     }
 
     public void ShowView(TypeViewUI typeViewUI)
@@ -37,5 +39,5 @@ public class GameUIController : MonoBehaviour
             else
                 view.view.SetActive(false);
         }
-    }    
+    }
 }
