@@ -76,7 +76,7 @@ namespace Watermelon
         {
             if (activeVirtualCamera != null && activeVirtualCamera.CameraType == cameraType)
                 return;
-
+            
             for (int i = 0; i < cameraController.virtualCameras.Length; i++)
             {
                 cameraController.virtualCameras[i].VirtualCamera.Priority = UNACTIVE_CAMERA_PRIORITY;

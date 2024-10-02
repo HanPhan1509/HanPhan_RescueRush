@@ -30,6 +30,12 @@ public class LevelEditor : MonoBehaviour
     //[SerializeField] private GameObject prefStreetRoad;
     [SerializeField] private Mesh mStreetRoad;
 
+    [Button("Generation level")]
+    private void GenerationLevel()
+    {
+
+    }    
+
     [Button("Generation cats")]
     private void GenerationCats()
     {

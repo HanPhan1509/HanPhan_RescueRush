@@ -113,5 +113,5 @@ MonoBehaviour:
   m_Name: Watermelon.ControlInitModule
   m_EditorClassIdentifier: 
   moduleName: Control Manager
-  selectAutomatically: 1
-  inputType: 0
+  selectAutomatically: 0
+  inputType: 1

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 namespace Watermelon
 {
-    [RequireComponent(typeof(Animator))]
     public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IControlBehavior
     {
         public static Joystick Instance { get; private set; }
@@ -46,7 +45,7 @@ namespace Watermelon
 
         private Vector2 defaultAnchoredPosition;
 
-        private Animator joystickAnimator;
+        //private Animator joystickAnimator;
         private bool isTutorialDisplayed;
         private bool hideVisualsActive;
 
@@ -71,7 +70,7 @@ namespace Watermelon
 
             Instance = this;
 
-            joystickAnimator = GetComponent<Animator>();
+            //joystickAnimator = GetComponent<Animator>();
 
             baseRectTransform = GetComponent<RectTransform>();
             backgroundRectTransform = backgroundImage.rectTransform;
@@ -89,20 +88,20 @@ namespace Watermelon
 
             isActive = false;
 
-            if(useTutorial)
-            {
-                joystickAnimator.enabled = true;
-                isTutorialDisplayed = true;
+            //if(useTutorial)
+            //{
+            //    joystickAnimator.enabled = true;
+            //    isTutorialDisplayed = true;
 
-                pointerGameObject.SetActive(true);
-            }
-            else
-            {
-                joystickAnimator.enabled = false;
-                isTutorialDisplayed = false;
+            //    pointerGameObject.SetActive(true);
+            //}
+            //else
+            //{
+            //    joystickAnimator.enabled = false;
+            //    isTutorialDisplayed = false;
 
-                pointerGameObject.SetActive(false);
-            }
+            //    pointerGameObject.SetActive(false);
+            //}
 
             backgroundImage.color = backgroundDisableColor.SetAlpha(hideVisualsActive ? 0f : backgroundDisableColor.a);
             handleImage.color = handleDisableColor.SetAlpha(hideVisualsActive ? 0f : backgroundDisableColor.a);
@@ -120,7 +119,7 @@ namespace Watermelon
             {
                 isTutorialDisplayed = true;
 
-                joystickAnimator.enabled = false;
+                //joystickAnimator.enabled = false;
                 pointerGameObject.SetActive(false);
             }
 
