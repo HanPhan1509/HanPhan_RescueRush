@@ -54,6 +54,7 @@ namespace Watermelon
 
         private void Awake()
         {
+            Instance = this;
             if (Control.InputType == InputType.UIJoystick)
             {
                 Control.SetControl(this);

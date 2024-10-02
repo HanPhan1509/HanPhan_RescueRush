@@ -21,16 +21,14 @@ public class GameUIController : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private List<ViewUI> views = new();
-    [SerializeField] private GameView gameView;
-    [SerializeField] private TapView tapView;
 
     private void Start()
     {
-        gameView.Initialise(canvas);
+        Joystick.Instance.Initialise(canvas);
         Joystick.Instance.DisableControl();
     }
 
-    private void ShowView(TypeViewUI typeViewUI)
+    public void ShowView(TypeViewUI typeViewUI)
     {
         foreach(var view in views)
         {

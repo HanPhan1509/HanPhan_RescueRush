@@ -8,8 +8,10 @@ public class RRController : MonoBehaviour
 {
     [SerializeField] private GameUIController gameUIController;
     [SerializeField] private CameraFollow cameraFollow;
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform player;
-    private bool isPlay = false;
+    [SerializeField] private GameObject prefPill;    
+    
 
     private void Start()
     {
@@ -22,8 +24,7 @@ public class RRController : MonoBehaviour
     {
         cameraFollow.Run(() =>
         {
-            isPlay = true;
-            Debug.Log("Playyyyyyyyy");
+            gameUIController.ShowView(TypeViewUI.E_TapView);
         });
     }
 
