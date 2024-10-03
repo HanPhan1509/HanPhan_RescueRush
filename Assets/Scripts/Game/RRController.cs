@@ -9,7 +9,6 @@ public class RRController : MonoBehaviour
     [SerializeField] private CameraFollow cameraFollow;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform player;
-    [SerializeField] private GameObject prefPill;
     [SerializeField] private PlayerController playerController;
 
     private void Start()

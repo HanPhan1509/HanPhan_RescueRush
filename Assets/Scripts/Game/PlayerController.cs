@@ -6,12 +6,38 @@ using Watermelon;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private FieldOfView fieldOfView;
+    [SerializeField] private GameObject range;
+    [SerializeField] private Transform containCat;
     //[SerializeField] private Rigidbody rb;
     //public Rigidbody GetRb() => rb;
 
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float rotationSpeed = 10.0f;
+
+    private Stack<CatController> stackCats = new Stack<CatController>();
     public float GetSpeed() => speed;
+
+    private void Start()
+    {
+        range.SetActive(false);
+        fieldOfView.Init(CathingCat);
+    }
+
+    private void CathingCat(CatController cat)
+    {
+        range.SetActive(fieldOfView.canSeePlayer);
+        cat.Caught(ConquerCat);
+    }
+    
+    private void ConquerCat(CatController cat)
+    {
+        cat.transform.SetParent(containCat);
+        Debug.Log("y pos = " + (float)stackCats.Count * cat.HeightCat);
+        cat.transform.localPosition = Vector3.zero + new Vector3(0, (float)stackCats.Count * cat.HeightCat, 0);
+        cat.transform.rotation = Quaternion.identity;
+        stackCats.Push(cat);
+    }    
 
     public void Moving(Vector3 dir)
     {
