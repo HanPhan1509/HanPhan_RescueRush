@@ -13,12 +13,12 @@ namespace Watermelon
 
         public void LeftStepCallback()
         {
-            playerBehavior.LeftFootParticle();
+            //playerBehavior.LeftFootParticle();
         }
 
         public void RightStepCallback()
         {
-            playerBehavior.RightFootParticle();
+            //playerBehavior.RightFootParticle();
         }
     }
 }

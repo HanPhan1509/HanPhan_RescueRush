@@ -10,11 +10,7 @@ public class RRController : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform player;
     [SerializeField] private GameObject prefPill;
-
-    private void Awake()
-    {
-        
-    }
+    [SerializeField] private PlayerController playerController;
 
     private void Start()
     {
@@ -33,6 +29,6 @@ public class RRController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(Joystick.Instance.FormatInput);
+        playerController.Moving(Joystick.Instance.FormatInput);
     }
 }
