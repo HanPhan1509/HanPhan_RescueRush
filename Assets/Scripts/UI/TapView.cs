@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Watermelon;
 
-public class TapView : MonoBehaviour
+public class TapView : UIView
 {
     [SerializeField] private Transform parent;
     [SerializeField] private GameObject pill;
@@ -26,42 +26,18 @@ public class TapView : MonoBehaviour
         slider.value = 1.0f;
     }
 
-    void Update()
+    public void ShowPill(Vector3 pos, float speedUp)
     {
-        TapOnScreen();
-    }
-
-    public void TapOnScreen()
-    {
-        if (numberFill <= 0)
-            return;
-
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
-            {
-                Vector3 touchPosition = touch.position;
-                ShowPill(touchPosition);
-            }
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            Vector3 mousePosition = Input.mousePosition;
-            ShowPill(mousePosition);
-        }
-    }
-
-    private void ShowPill(Vector3 pos)
-    {
-        ShowSlider();
-        GameObject newPill = Instantiate(pill, pos, Quaternion.identity, parent);
+        //ShowSlider();
+        //GameObject pill = Instantiate(pill, pos, Quaternion.identity, parent);
+        GameObject newPill = SimplePool.Spawn(pill, pos, Quaternion.identity);
+        newPill.GetComponent<Pill>().SetUp(speedUp);
+        newPill.transform.SetParent(parent);
         newPill.transform.localScale = Vector3.zero;
         newPill.transform.DOScale(Vector2.one, 0.5f).OnComplete(() =>
         {
-            newPill.transform.DOScale(Vector2.zero, 0.5f).OnComplete(() => Destroy(newPill));
+            newPill.transform.DOMove(new Vector3(newPill.transform.position.x, newPill.transform.position.y + 100, newPill.transform.position.z), 1.0f);
+            newPill.transform.DOScale(Vector2.zero, 1.5f).OnComplete(() => SimplePool.Despawn(newPill));
         });
     }
 
@@ -72,10 +48,10 @@ public class TapView : MonoBehaviour
         {
             numberFill -= 16;
             value = (float)numberFill / (float)maxFill;
-        }    
+        }
         slider.value = value;
         txtNumberEnery.text = $"{numberFill}/{maxFill}";
-        if(value <= 0.0f)
+        if (value <= 0.0f)
             GameUIController.Instance.ShowView(TypeViewUI.E_GameView);
     }
 }

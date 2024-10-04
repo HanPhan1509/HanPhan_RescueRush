@@ -8,7 +8,7 @@ public class CatController : MonoBehaviour
 {
     [SerializeField] private Slider slider;
     [SerializeField] private GameObject ui;
-    private float timeCatch = 3.0f;
+    private float timeCatch = 0.5f;
     private float timer = 0f;
     private float heightCat = 1.35f;
     public float HeightCat => heightCat;

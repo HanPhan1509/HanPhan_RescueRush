@@ -11,12 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform containCat;
     //[SerializeField] private Rigidbody rb;
     //public Rigidbody GetRb() => rb;
-
-    [SerializeField] private float speed = 10.0f;
     [SerializeField] private float rotationSpeed = 10.0f;
 
     private Stack<CatController> stackCats = new Stack<CatController>();
-    public float GetSpeed() => speed;
 
     private void Start()
     {
@@ -39,7 +36,7 @@ public class PlayerController : MonoBehaviour
         stackCats.Push(cat);
     }    
 
-    public void Moving(Vector3 dir)
+    public void Moving(Vector3 dir, float speed)
     {
         if (dir != Vector3.zero)
         {

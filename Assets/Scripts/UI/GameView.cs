@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Watermelon;
 
-public class GameView : MonoBehaviour
+public class GameView : UIView
 {
     [SerializeField] private Joystick joystick;
     public Joystick Joystick => joystick;

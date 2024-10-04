@@ -39,6 +39,17 @@ public class LevelEditor : MonoBehaviour
     [Header("Ground")]
     [SerializeField] private Transform ground;
 
+    private void Awake()
+    {
+        if (DataManager.level != null)
+        {
+            this.level = DataManager.level;
+            parentCat.gameObject.SetActive(true);
+            parentObstacle.gameObject.SetActive(true);
+            LoadLevel();
+        }    
+    }
+
     [Button("Load level")]
     private void LoadLevel()
     {
@@ -87,7 +98,7 @@ public class LevelEditor : MonoBehaviour
             Quaternion quaternion = Quaternion.Euler(0, Random.Range(0, 360), 0);
             CreateObstacle(pos, quaternion);
         }
-    }    
+    }
 
     [Button("Generation level")]
     private void GenerationLevel()
