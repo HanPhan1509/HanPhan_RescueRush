@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3819535775396224057}
   - component: {fileID: 6370758648478681835}
   - component: {fileID: 1050396143549108204}
+  - component: {fileID: 1911454599098449881}
   m_Layer: 0
   m_Name: Cupboard_05
   m_TagString: Untagged
@@ -107,6 +108,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.7411573, y: 2.5083554, z: 2.4360929}
   m_Center: {x: 0, y: 1.2559339, z: -0.0024868846}
+--- !u!54 &1911454599098449881
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876723856157809061}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &3070949727877090274
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,6 +18,10 @@ public class RRController : MonoBehaviour
     [Header("TSUNAMI")]
     [SerializeField] private Tsunami tsunami;
 
+    [Header("STREET")]
+    [SerializeField] private float phase_1 = 400.0f;
+    [SerializeField] private float linePhase = 0.0f;
+
     private List<Vector3> lstCatPosition = new List<Vector3>();
     private int  index = 0;
     private bool isGameOver = false;
@@ -51,10 +55,10 @@ public class RRController : MonoBehaviour
     private void Start()
     {
         tsunami.Init(GameOver);
-
         GameUIController.Instance.Init();
         GameUIController.Instance.ShowView(TypeViewUI.None);
         MoveCamera();
+        linePhase = phase_1 / 2;
     }
 
     private void MoveCamera()
@@ -81,6 +85,12 @@ public class RRController : MonoBehaviour
 
     private void Update()
     {
+        if(playerController.transform.position.z > linePhase)
+        {
+            linePhase += linePhase;
+            DataManager.OnLoopPhase?.Invoke();
+        }    
+
         if (isGameOver) return;
         playerController.Moving(Joystick.Instance.FormatInput, model.Speed);
 
