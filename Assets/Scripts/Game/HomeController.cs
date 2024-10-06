@@ -12,6 +12,8 @@ public class HomeController : MonoBehaviour
 
     private void Start()
     {
+        DataManager.level = null;
+        SceneManager.LoadScene(TypeScene.LevelEditor.ToString(), LoadSceneMode.Additive);
         SetUp();
     }
 

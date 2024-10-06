@@ -14,16 +14,15 @@ public class RRController : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform player;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private GameObject finish;
 
     [Header("TSUNAMI")]
     [SerializeField] private Tsunami tsunami;
 
-    [Header("STREET")]
-    [SerializeField] private float phase_1 = 400.0f;
-    [SerializeField] private float linePhase = 0.0f;
+    private float linePhase = 0.0f;
 
     private List<Vector3> lstCatPosition = new List<Vector3>();
-    private int  index = 0;
+    private int index = 0;
     private bool isGameOver = false;
     private bool isTap = false;
 
@@ -48,7 +47,7 @@ public class RRController : MonoBehaviour
             {
                 DataManager.level = level;
                 SceneManager.LoadScene(TypeScene.LevelEditor.ToString(), LoadSceneMode.Additive);
-            }    
+            }
         }
     }
 
@@ -56,9 +55,12 @@ public class RRController : MonoBehaviour
     {
         tsunami.Init(GameOver);
         GameUIController.Instance.Init();
-        GameUIController.Instance.ShowView(TypeViewUI.None);
         MoveCamera();
-        linePhase = phase_1 / 2;
+        linePhase = model.Phase_1 / 2;
+        Instantiate(finish, new Vector3(0, 0, model.Phase_1 + model.Phase_2), Quaternion.identity).GetComponent<Finish>().Init(() =>
+        {
+            GameUIController.Instance.ShowView(TypeViewUI.E_WinView);
+        });
     }
 
     private void MoveCamera()
@@ -85,16 +87,16 @@ public class RRController : MonoBehaviour
 
     private void Update()
     {
-        if(playerController.transform.position.z > linePhase)
+        if (playerController.transform.position.z > linePhase)
         {
             linePhase += linePhase;
             DataManager.OnLoopPhase?.Invoke();
-        }    
+        }
 
         if (isGameOver) return;
         playerController.Moving(Joystick.Instance.FormatInput, model.Speed);
 
-        if(isTap) TapOnScreen();
+        if (isTap) TapOnScreen();
     }
 
     public void TapOnScreen()
@@ -133,5 +135,5 @@ public class RRController : MonoBehaviour
         isGameOver = true;
         Joystick.Instance.DisableControl();
         GameUIController.Instance.ShowView(TypeViewUI.E_GameoverView);
-    }    
+    }
 }

@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     private void ConquerCat(CatController cat)
     {
         cat.transform.SetParent(containCat);
-        Debug.Log("y pos = " + (float)stackCats.Count * cat.HeightCat);
         cat.transform.localPosition = Vector3.zero + new Vector3(0, (float)stackCats.Count * cat.HeightCat, 0);
         cat.transform.rotation = Quaternion.identity;
         stackCats.Push(cat);

@@ -18,6 +18,7 @@ public enum TypeViewUI
     E_GameView,
     E_TapView,
     E_GameoverView,
+    E_WinView,
 }
 
 [Serializable]
@@ -25,12 +26,6 @@ public class ViewUI
 {
     public UIView uiView;
     public TypeViewUI type;
-}
-
-public class ViewParam { }
-public class TapViewParam : ViewParam
-{
-    Action OnSpeedUp;
 }
 
 public class GameUIController : ManualSingletonMono<GameUIController>
@@ -41,6 +36,7 @@ public class GameUIController : ManualSingletonMono<GameUIController>
     public void Init()
     {
         Joystick.Instance.Initialise(canvas);
+        ShowView(TypeViewUI.None);
         //Joystick.Instance.DisableControl();
     }
 

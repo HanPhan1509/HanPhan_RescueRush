@@ -55,6 +55,10 @@ public class LevelEditor : ManualSingletonMono<LevelEditor>
             parentObstacle.gameObject.SetActive(true);
             loopPhase2 = Instantiate(loopPhase1, new Vector3(0, 0, phase_1), Quaternion.identity, parentPhase);
             LoadLevel();
+        } else
+        {
+            parentCat.gameObject.SetActive(false);
+            parentObstacle.gameObject.SetActive(false);
         }
     }
 

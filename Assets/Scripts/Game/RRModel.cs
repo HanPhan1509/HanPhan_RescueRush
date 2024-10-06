@@ -18,4 +18,11 @@ public class RRModel : MonoBehaviour
     public float[] TsunamiTime { get { return tsunamiTime; } }
     public float[] LineStreet { get { return lineStreet; } }
 
+
+    [Header("STREET")]
+    [SerializeField] private float phase_1 = 400.0f;
+    [SerializeField] private float phase_2 = 1000.0f;
+    public float Phase_1 { get => phase_1; }
+    public float Phase_2 { get => phase_2; }
+
 }
