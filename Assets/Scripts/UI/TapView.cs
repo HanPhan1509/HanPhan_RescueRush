@@ -1,11 +1,8 @@
+using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Watermelon;
 
 public class TapView : UIView
 {
@@ -36,8 +33,10 @@ public class TapView : UIView
         newPill.transform.localScale = Vector3.zero;
         newPill.transform.DOScale(Vector2.one, 0.5f).OnComplete(() =>
         {
-            newPill.transform.DOMove(new Vector3(newPill.transform.position.x, newPill.transform.position.y + 100, newPill.transform.position.z), 1.0f);
-            newPill.transform.DOScale(Vector2.zero, 1.5f).OnComplete(() => SimplePool.Despawn(newPill));
+            newPill.transform.DOMove(new Vector3(newPill.transform.position.x, newPill.transform.position.y + 100, newPill.transform.position.z), 1.0f).OnComplete(() =>
+            {
+                newPill.transform.DOScale(Vector2.zero, 1.5f).OnComplete(() => SimplePool.Despawn(newPill));
+            });
         });
     }
 

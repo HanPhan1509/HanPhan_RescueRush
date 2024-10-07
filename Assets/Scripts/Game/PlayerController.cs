@@ -21,9 +21,13 @@ public class PlayerController : MonoBehaviour
         fieldOfView.Init(CathingCat);
     }
 
-    private void CathingCat(CatController cat)
+    private void Update()
     {
         range.SetActive(fieldOfView.canSeePlayer);
+    }
+
+    private void CathingCat(CatController cat)
+    {
         cat.Caught(ConquerCat);
     }
     

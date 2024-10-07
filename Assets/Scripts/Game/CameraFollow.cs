@@ -1,6 +1,9 @@
 using Cinemachine;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Watermelon;
 
 public enum CameraVirtualType
 {
@@ -15,25 +18,42 @@ public class CameraFollow : MonoBehaviour
     private const int UNACTIVE_CAMERA_PRIORITY = 0;
 
     [SerializeField] private CinemachineBrain cameraBrain;
-    [SerializeField] private CameraVirtualType firstCamera;
     public CinemachineBrain CinemachineBrain { get { return cameraBrain; } }
 
     [Space]
     [SerializeField] CinemachineVirtualCamera[] virtualCameras;
+    private static CameraFollow cameraController;
+    private Transform player;
     private Action OnPlayGame;
     private bool isCameraMoving = false;
 
     private void Awake()
     {
-        CinemachineCore.CameraUpdatedEvent.AddListener(OnCameraUpdated);
-        EnableCamera(firstCamera);
+        //CinemachineCore.CameraUpdatedEvent.AddListener(OnCameraUpdated);
+        cameraController = this;
+        EnableCamera(CameraVirtualType.Start);
+
     }
 
-    public void Run(Action OnPlayGame)
+    public void Run(Transform player, Action OnPlayGame)
     {
+        this.player = player;
         this.OnPlayGame = OnPlayGame;
-        EnableCamera(CameraVirtualType.ZoomOut);
+        cameraController.cameraBrain.enabled = true;
+        StartCoroutine(RunCamera());
     }
+
+    private IEnumerator RunCamera()
+    {
+        yield return new WaitForSeconds(2.0f);
+        EnableCamera(CameraVirtualType.ZoomOut);
+        yield return new WaitForSeconds(2.0f);
+        EnableCamera(CameraVirtualType.Main);
+        virtualCameras[^1].Follow = player;
+        virtualCameras[^1].LookAt = player;
+        yield return new WaitForSeconds(2.0f);
+        OnPlayGame?.Invoke();
+    }    
 
     public void EnableCamera(CameraVirtualType cameraType)
     {

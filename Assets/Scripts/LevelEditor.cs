@@ -30,6 +30,7 @@ public class LevelEditor : ManualSingletonMono<LevelEditor>
     [Header("Obstacle")]
     [SerializeField] private Transform parentObstacle;
     [SerializeField] private int totalObstacles = 10;
+    [SerializeField] private int totalObstaclesInLevel = 10;
     [SerializeField] private GameObject[] obstacles;
     [SerializeField] private List<Vector3> lstObstaclePosition = new List<Vector3>();
     [SerializeField] private Dictionary<GameObject, Transform> dictObstacle = new Dictionary<GameObject, Transform>();
@@ -43,6 +44,47 @@ public class LevelEditor : ManualSingletonMono<LevelEditor>
     [Space(2.0f)]
     [Header("Ground")]
     [SerializeField] private Transform ground;
+
+
+    [Space]
+
+    public List<LevelScriptableObject> levels;
+    [SerializeField] private int startNumber = 1;
+    [SerializeField] private int endNumber = 10;
+
+    [Button("Automation Generate Map")]
+    private void AutomationGenerateMap()
+    {
+        levels.Clear();
+        for (int i = startNumber; i <= endNumber; i++)
+        {
+            ClearAll();
+            numberCat += (i % 2);
+            totalObstacles += 5;
+            GenerationObstacles();
+            GenerationCats();
+            numberLevel = i;
+            SaveLevel();
+        }
+    }
+
+    [SerializeField] private int numberLevel = 1;
+    [Button("Save Level")]
+    private void SaveLevel()
+    {
+#if UNITY_EDITOR
+        LevelScriptableObject level = ScriptableObject.CreateInstance<LevelScriptableObject>();
+        level.lstTransformCat = new List<Vector3>(lstTransformCat);
+        level.lstTransformObstacle = new List<Vector3>(lstObstaclePosition);
+        levels.Add(level);
+
+        string resourcePath = "Assets/Resources/Levels";
+        string assetPath = $"{resourcePath}/Level_{numberLevel}.asset";
+        AssetDatabase.CreateAsset(level, assetPath);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+#endif
+    }
 
     private void Start()
     {
@@ -233,43 +275,5 @@ public class LevelEditor : ManualSingletonMono<LevelEditor>
         }
         lstTransformCat.Clear();
         lstObstaclePosition.Clear();
-    }
-
-    [Space]
-
-    public List<LevelScriptableObject> levels;
-    [SerializeField] private int startNumber = 1;
-    [SerializeField] private int endNumber = 10;
-
-    [Button("Automation Generate Map")]
-    private void AutomationGenerateMap()
-    {
-        levels.Clear();
-        for (int i = startNumber; i <= endNumber; i++)
-        {
-            ClearAll();
-            numberCat += (i % 2);
-            totalObstacles += (i / 2);
-            GenerationObstacles();
-            GenerationCats();
-            numberLevel = i;
-            SaveLevel();
-        }
-    }
-
-    [SerializeField] private int numberLevel = 1;
-    [Button("Save Level")]
-    private void SaveLevel()
-    {
-        LevelScriptableObject level = ScriptableObject.CreateInstance<LevelScriptableObject>();
-        level.lstTransformCat = new List<Vector3>(lstTransformCat);
-        level.lstTransformObstacle = new List<Vector3>(lstObstaclePosition);
-        levels.Add(level);
-
-        string resourcePath = "Assets/Resources/Levels";
-        string assetPath = $"{resourcePath}/Level_{numberLevel}.asset";
-        AssetDatabase.CreateAsset(level, assetPath);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
     }
 }

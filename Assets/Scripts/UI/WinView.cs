@@ -8,6 +8,7 @@ public class WinView : UIView
     public void BTN_Next()
     {
         DataGameSave.SetLevel(DataGameSave.GetLevel() + 1);
+        DataGameSave.SetSpeed(10);
         SceneManager.LoadScene(TypeScene.Home.ToString());
     }
 }

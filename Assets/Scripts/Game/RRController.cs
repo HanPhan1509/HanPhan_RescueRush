@@ -11,7 +11,6 @@ public class RRController : MonoBehaviour
 {
     [SerializeField] private RRModel model;
     [SerializeField] private CameraFollow cameraFollow;
-    [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform player;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private GameObject finish;
@@ -29,18 +28,17 @@ public class RRController : MonoBehaviour
     private void Awake()
     {
         int currentLevel = DataGameSave.GetLevel();
-        LoadMap(currentLevel);
+        model.Speed = DataGameSave.GetSpeed() + currentLevel;
+        LoadLevel(currentLevel);
     }
 
-    private void LoadMap(int currentLevel)
+    private void LoadLevel(int currentLevel)
     {
-        string folderPath = "Assets/Resources/Levels";
-        string[] prefabPaths = AssetDatabase.FindAssets("Level_", new[] { folderPath });
-        foreach (string prefabPath in prefabPaths)
+        string levelName = "Levels/Level_" + currentLevel;
+        LevelScriptableObject level = Resources.Load<LevelScriptableObject>(levelName);
+        if (level != null)
         {
-            string prefabFullPath = AssetDatabase.GUIDToAssetPath(prefabPath);
-            LevelScriptableObject level = AssetDatabase.LoadAssetAtPath<LevelScriptableObject>(prefabFullPath);
-            lstCatPosition = level.lstTransformCat;
+            lstCatPosition = new List<Vector3>(level.lstTransformCat);
             char lastChar = level.name[level.name.Length - 1];
             int lastNumber = int.Parse(lastChar.ToString());
             if (lastNumber == currentLevel)
@@ -50,6 +48,25 @@ public class RRController : MonoBehaviour
             }
         }
     }
+
+    //private void LoadMap(int currentLevel)
+    //{
+    //    string folderPath = "Assets/Resources/Levels";
+    //    string[] prefabPaths = AssetDatabase.FindAssets("Level_", new[] { folderPath });
+    //    foreach (string prefabPath in prefabPaths)
+    //    {
+    //        string prefabFullPath = AssetDatabase.GUIDToAssetPath(prefabPath);
+    //        LevelScriptableObject level = AssetDatabase.LoadAssetAtPath<LevelScriptableObject>(prefabFullPath);
+    //        lstCatPosition = level.lstTransformCat;
+    //        char lastChar = level.name[level.name.Length - 1];
+    //        int lastNumber = int.Parse(lastChar.ToString());
+    //        if (lastNumber == currentLevel)
+    //        {
+    //            DataManager.level = level;
+    //            SceneManager.LoadScene(TypeScene.LevelEditor.ToString(), LoadSceneMode.Additive);
+    //        }
+    //    }
+    //}
 
     private void Start()
     {
@@ -65,28 +82,29 @@ public class RRController : MonoBehaviour
 
     private void MoveCamera()
     {
-        cameraFollow.Run(() =>
-        {
-            GameUIController.Instance.ShowView(TypeViewUI.E_TapView);
-            isTap = true;
-            StartCoroutine(Countdown());
-        });
+        cameraFollow.Run(player, () => StartCoroutine(Countdown()));
     }
 
     private IEnumerator Countdown()
     {
+        GameUIController.Instance.ShowView(TypeViewUI.E_TapView);
+        isTap = true;
         yield return new WaitForSeconds(model.TimeStart);
         StartGame();
     }
 
     private void StartGame()
     {
-        GameUIController.Instance.ShowView(TypeViewUI.E_GameView);
+        isTap = false;
         TsunamiMoving();
+        Joystick.Instance.EnableControl();
+        GameUIController.Instance.ShowView(TypeViewUI.E_GameView);
     }
 
     private void Update()
     {
+        if (isTap) TapOnScreen();
+
         if (playerController.transform.position.z > linePhase)
         {
             linePhase += linePhase;
@@ -95,8 +113,6 @@ public class RRController : MonoBehaviour
 
         if (isGameOver) return;
         playerController.Moving(Joystick.Instance.FormatInput, model.Speed);
-
-        if (isTap) TapOnScreen();
     }
 
     public void TapOnScreen()
@@ -108,7 +124,11 @@ public class RRController : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 Vector3 touchPosition = touch.position;
-                model.Speed += model.SpeedUp;
+                if (DataGameSave.GetSpeed() < 30.0f)
+                {
+                    model.Speed += model.SpeedUp;
+                    DataGameSave.SetSpeed(model.Speed);
+                }
                 GameUIController.Instance.ShowPill(touchPosition, model.SpeedUp);
             }
         }
