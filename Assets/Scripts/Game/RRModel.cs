@@ -6,8 +6,10 @@ public class RRModel : MonoBehaviour
 {
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float speedUp = 1.0f;
+    [SerializeField] private float maxSpeed = 20.0f;
     public float Speed { get => speed; set => speed = value; }
     public float SpeedUp { get => speedUp; set => speedUp = value; }
+    public float MaxSpeed { get => maxSpeed; }
 
     [SerializeField] private float timeStart = 3.0f;
     public float TimeStart { get { return timeStart; } }

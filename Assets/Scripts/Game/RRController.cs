@@ -124,7 +124,7 @@ public class RRController : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 Vector3 touchPosition = touch.position;
-                if (DataGameSave.GetSpeed() < 30.0f)
+                if (DataGameSave.GetSpeed() < model.MaxSpeed)
                 {
                     model.Speed += model.SpeedUp;
                     DataGameSave.SetSpeed(model.Speed);
